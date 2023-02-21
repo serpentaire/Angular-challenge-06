@@ -1,0 +1,46 @@
+<p>search-movie works!</p>
+<form [formGroup] = "formGroup" (ngSubmit)="formGroup.valid && filmSearch()" #myForm="ngForm">
+  <fieldset>
+    <label for="identifiant">Identifiant</label>
+    <input
+    id="identifiant"
+    name="identifiant"
+    type="text"
+    formControlName="identifiant"
+     />
+  </fieldset>
+   <!-- Message d'erreurs de identifiant -->
+  <div *ngIf="formGroup.controls.title.errors && inValidate === true">
+    <span *ngIf="formGroup?.controls?.['title']?.errors?.['required']">Le champ identifiant est requis</span>
+  </div>
+  <fieldset>
+    <label for="titre">Titre</label>
+    <input id="titre" name="titre" type="text" formControlName="titre"/>
+  </fieldset>
+     <!-- Message d'erreurs de identifiant -->
+     <div *ngIf="formGroup.controls.title.errors && inValidate === true">
+      <span *ngIf="formGroup?.controls?.['title']?.errors?.['required']">Le champ titre est requis</span>
+    </div>
+  <select>
+    <option *ngFor="let type of lesTypes" [selected]="type === typeInit" value="type">
+      {{type}}
+    </option>
+  </select>
+  <fieldset>
+    <label for="anneesortie">Année de sortie</label>
+    <input id="anneesortie" name="anneesortie" type="text" formControlName="anneesortie"/>
+  </fieldset>
+  <!-- Message d'erreurs de anneesortie -->
+  <div *ngIf="formGroup.controls.anneesortie.errors && inValidate === true">
+    <span *ngIf="formGroup?.controls?.['anneesortie']?.errors?.['required']">L'année n'est pas correcte'</span>
+  </div>
+  <select>
+    <option *ngFor="let fiche of lesFiches">
+      {{fiche}}
+    </option>
+  </select>
+  <div>
+    <button type="submit" (click)="handleValidate()">Soumettre</button>
+  </div>
+
+</form>
