@@ -1,46 +1,35 @@
-<p>search-movie works!</p>
-<form [formGroup] = "formGroup" (ngSubmit)="formGroup.valid && filmSearch()" #myForm="ngForm">
-  <fieldset>
-    <label for="identifiant">Identifiant</label>
-    <input
-    id="identifiant"
-    name="identifiant"
-    type="text"
-    formControlName="identifiant"
-     />
-  </fieldset>
-   <!-- Message d'erreurs de identifiant -->
-  <div *ngIf="formGroup.controls.title.errors && inValidate === true">
-    <span *ngIf="formGroup?.controls?.['title']?.errors?.['required']">Le champ identifiant est requis</span>
-  </div>
-  <fieldset>
-    <label for="titre">Titre</label>
-    <input id="titre" name="titre" type="text" formControlName="titre"/>
-  </fieldset>
-     <!-- Message d'erreurs de identifiant -->
-     <div *ngIf="formGroup.controls.title.errors && inValidate === true">
-      <span *ngIf="formGroup?.controls?.['title']?.errors?.['required']">Le champ titre est requis</span>
+<form [formGroup]="formGroup" #myForm="ngForm" (ngSubmit)="formGroup.valid && onSubmit()">
+  <div formGroupName="name">
+    <input type="texte" placeholder="identifiant" formControlName="identifant"/>
+    <div *ngIf="formGroup.get('name')?.errors && inValidate === true">
+      <div class="text-danger" *ngIf="formGroup.get('name')?.errors">l'identifiant est requis</div>
     </div>
-  <select>
-    <option *ngFor="let type of lesTypes" [selected]="type === typeInit" value="type">
-      {{type}}
-    </option>
-  </select>
-  <fieldset>
-    <label for="anneesortie">Année de sortie</label>
-    <input id="anneesortie" name="anneesortie" type="text" formControlName="anneesortie"/>
-  </fieldset>
-  <!-- Message d'erreurs de anneesortie -->
-  <div *ngIf="formGroup.controls.anneesortie.errors && inValidate === true">
-    <span *ngIf="formGroup?.controls?.['anneesortie']?.errors?.['required']">L'année n'est pas correcte'</span>
+    <input type="texte" placeholder="titre" formControlName="titre"/>
+    <div *ngIf="formGroup.get('name')?.errors && inValidate === true">
+      <div class="text-danger" *ngIf="formGroup.get('name')?.errors">le titre est requis</div>
+    </div>
   </div>
-  <select>
-    <option *ngFor="let fiche of lesFiches">
-      {{fiche}}
-    </option>
+    <select formControlName="types" >
+      <option *ngFor="let types of lesTypes" [ngValue]="types.name">
+        {{types.name}}
+      </option>
   </select>
   <div>
-    <button type="submit" (click)="handleValidate()">Soumettre</button>
+    <div>
+      <input type="texte" placeholder="année de sortie" formControlName="anneeDeSortie"/>
+      <div *ngIf="formGroup.get('anneeDeSortie')?.errors && inValidate === true">
+        <div class="text-danger" *ngIf="formGroup.get('anneeDeSortie')?.errors">l'annee doit etre entre {{min}} et {{max}}</div>
+      </div>
+    </div>
+    <select formControlName="fiches" >
+      <option *ngFor="let fiches of lesFiches" [ngValue]="fiches.name">
+        {{fiches.name}}
+      </option>
+    </select>
   </div>
-
+  <div>
+    <button type="submit" (click)="handleValidate()">
+      Soumettre
+    </button>
+  </div>
 </form>
